@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import Recipe from '../recipe.model';
+import {RecipeService} from "../recipes.service";
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-list',
@@ -7,15 +10,16 @@ import Recipe from '../recipe.model';
   styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit {
+  recipes: Recipe[];
 
-  recipes: Recipe[] = [
-    new Recipe("A test Recipe", "This is a test", "https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjGvanClafeAhXI31QKHbBiBWEQjRx6BAgBEAU&url=https%3A%2F%2Fwww.southernliving.com%2Frecipes%2Fcreamy-rice-scallops-recipe&psig=AOvVaw2lyx_kggkSbtE10gLXQjfZ&ust=1540748481801401"),
-    new Recipe("A test Recipe", "This is a test", "https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjGvanClafeAhXI31QKHbBiBWEQjRx6BAgBEAU&url=https%3A%2F%2Fwww.southernliving.com%2Frecipes%2Fcreamy-rice-scallops-recipe&psig=AOvVaw2lyx_kggkSbtE10gLXQjfZ&ust=1540748481801401")
-  ];
-  
-  constructor() { }
+  constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.recipes = this.recipeService.getRecipes();
+  }
+
+  onNewRecipe(){
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 
 }
