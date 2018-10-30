@@ -20,6 +20,9 @@ export class ShoppingListComponent implements OnInit {
       this.ingredients = ingredients;
     }))
   }
+  onEditItem(index:number){
+    this.slService.startedEditing.next(index);
+  }
   ngOnDestroy(){
     this.subscriptions.forEach(
       sub=> sub.unsubscribe()
